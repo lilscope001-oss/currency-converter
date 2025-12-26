@@ -182,7 +182,7 @@ public class CurrencyConverter extends JFrame {
             CurrencyItem toItem = (CurrencyItem) toBox.getSelectedItem();
             String to = toItem.code;
 
-            double amount = Double.parseDouble(amountField.getText());
+            double amount = Double.parseDouble((amountField.getText()).trim());
 
             double fromRate = ratesMap.get(from);
             double toRate = ratesMap.get(to);
@@ -193,10 +193,16 @@ public class CurrencyConverter extends JFrame {
                     Locale.US,
                     "Result: %.2f %s = %.2f %s",
                     amount, from, converted, to));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid input",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this,
-                    "Invalid input or rates not loaded.",
+                    "Unknown error occured",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
