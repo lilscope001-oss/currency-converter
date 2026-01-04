@@ -20,11 +20,13 @@ public class CurrencyConverter extends JFrame {
 
    private static final long serialVersionUID = 1L;
 
-   // UI Constants
+   // UI Constants - Modern Colorful Palette
    private static final Color PRIMARY_COLOR = new Color(76, 175, 80);
-   private static final Color DARK_BG = new Color(30, 30, 30);
-   private static final Color PANEL_BG = new Color(40, 40, 40);
-   private static final Color INPUT_BG = new Color(50, 50, 50);
+   private static final Color SECONDARY_COLOR = new Color(33, 150, 243);
+   private static final Color ACCENT_COLOR = new Color(255, 152, 0);
+   private static final Color DARK_BG = new Color(17, 29, 57);
+   private static final Color PANEL_BG = new Color(25, 43, 80);
+   private static final Color INPUT_BG = new Color(33, 55, 100);
    private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
    private static final Color WARNING_COLOR = new Color(255, 150, 100);
    private static final Color TEXT_LIGHT = new Color(220, 220, 220);
@@ -101,8 +103,8 @@ public class CurrencyConverter extends JFrame {
       // Amount and Convert section
       JPanel amountPanel = new JPanel();
       amountPanel.setLayout(new BoxLayout(amountPanel, BoxLayout.Y_AXIS));
-      amountPanel.setBackground(PANEL_BG);
-      amountPanel.setBorder(new RoundedBorder(12, new Color(60, 60, 60), 1, new Insets(20, 20, 20, 20)));
+      amountPanel.setBackground(new Color(35, 60, 100));
+      amountPanel.setBorder(new RoundedBorder(12, SECONDARY_COLOR, 2, new Insets(20, 20, 20, 20)));
       amountPanel.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH, 120));
       amountPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -117,7 +119,7 @@ public class CurrencyConverter extends JFrame {
       amountField.setBackground(INPUT_BG);
       amountField.setForeground(Color.WHITE);
       amountField.setCaretColor(PRIMARY_COLOR);
-      amountField.setBorder(new RoundedBorder(8, new Color(60, 60, 60), 1, new Insets(10, 15, 10, 15)));
+      amountField.setBorder(new RoundedBorder(8, SECONDARY_COLOR, 1, new Insets(10, 15, 10, 15)));
       amountPanel.add(amountField);
       mainPanel.add(amountPanel);
       mainPanel.add(Box.createVerticalStrut(25));
@@ -132,8 +134,8 @@ public class CurrencyConverter extends JFrame {
       // Result display
       JPanel resultPanel = new JPanel();
       resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
-      resultPanel.setBackground(new Color(45, 45, 45));
-      resultPanel.setBorder(new RoundedBorder(12, new Color(60, 60, 60), 1, new Insets(20, 20, 20, 20)));
+      resultPanel.setBackground(new Color(25, 50, 90));
+      resultPanel.setBorder(new RoundedBorder(12, ACCENT_COLOR, 2, new Insets(20, 20, 20, 20)));
       resultPanel.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH, 100));
       resultPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -210,7 +212,7 @@ public class CurrencyConverter extends JFrame {
       comboBox.setRenderer(new CurrencyRenderer());
       comboBox.setBackground(INPUT_BG);
       comboBox.setForeground(Color.WHITE);
-      comboBox.setBorder(new RoundedBorder(8, new Color(60, 60, 60), 1, new Insets(8, 12, 8, 12)));
+      comboBox.setBorder(new RoundedBorder(8, PRIMARY_COLOR, 1, new Insets(8, 12, 8, 12)));
       comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
       panel.add(comboBox);
 
@@ -229,16 +231,16 @@ public class CurrencyConverter extends JFrame {
       button.setPreferredSize(new Dimension(120, 38));
       button.setMinimumSize(new Dimension(120, 38));
       button.setMaximumSize(new Dimension(120, 38));
-      button.setBackground(new Color(60, 60, 60));
+      button.setBackground(new Color(33, 55, 100));
       button.setForeground(Color.WHITE);
-      button.setBorder(new RoundedBorder(8, new Color(80, 80, 80), 1, new Insets(8, 20, 8, 20)));
+      button.setBorder(new RoundedBorder(8, SECONDARY_COLOR, 2, new Insets(8, 20, 8, 20)));
       button.setFocusPainted(false);
       button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
       button.addMouseListener(new java.awt.event.MouseAdapter() {
          public void mouseEntered(java.awt.event.MouseEvent e) {
-            button.setBackground(new Color(70, 70, 70));
-            button.setBorder(new RoundedBorder(8, PRIMARY_COLOR, 1, new Insets(8, 20, 8, 20)));
+            button.setBorder(new RoundedBorder(8, ACCENT_COLOR, 2, new Insets(8, 20, 8, 20)));
+            button.setBackground(new Color(40, 65, 120));
          }
 
          public void mouseExited(java.awt.event.MouseEvent e) {
