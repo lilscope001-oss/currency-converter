@@ -20,16 +20,17 @@ public class CurrencyConverter extends JFrame {
 
    private static final long serialVersionUID = 1L;
 
-   // UI Constants - Modern Colorful Palette
-   private static final Color PRIMARY_COLOR = new Color(76, 175, 80);
-   private static final Color SECONDARY_COLOR = new Color(33, 150, 243);
-   private static final Color ACCENT_COLOR = new Color(255, 152, 0);
-   private static final Color DARK_BG = new Color(17, 29, 57);
-   private static final Color PANEL_BG = new Color(25, 43, 80);
-   private static final Color INPUT_BG = new Color(33, 55, 100);
-   private static final Color SUCCESS_COLOR = new Color(76, 175, 80);
-   private static final Color WARNING_COLOR = new Color(255, 150, 100);
-   private static final Color TEXT_LIGHT = new Color(220, 220, 220);
+   // UI Constants - Modern Coherent Palette
+   private static final Color PRIMARY_COLOR = new Color(33, 150, 243); // Blue
+   private static final Color SECONDARY_COLOR = new Color(66, 165, 245); // Light Blue
+   private static final Color ACCENT_COLOR = new Color(255, 193, 7); // Amber
+   private static final Color DARK_BG = new Color(15, 25, 45); // Deep Blue-Black
+   private static final Color CARD_BG = new Color(25, 40, 70); // Deep Blue
+   private static final Color INPUT_BG = new Color(35, 55, 95); // Medium Blue
+   private static final Color SUCCESS_COLOR = new Color(102, 187, 106); // Green
+   private static final Color WARNING_COLOR = new Color(255, 152, 0); // Orange
+   private static final Color TEXT_LIGHT = new Color(230, 230, 240); // Light Text
+   private static final Color TEXT_MUTED = new Color(144, 144, 160); // Muted Text
 
    // Size Constants
    private static final int MIN_CONTENT_WIDTH = 400;
@@ -47,12 +48,12 @@ public class CurrencyConverter extends JFrame {
    // Currency → Rate (relative to USD)
    private final Map<String, Double> ratesMap = new TreeMap<>();
 
-   public CurrencyConverter() {
-      super("Currency Converter");
-      setupLookAndFeel();
-      initUI();
-      fetchRates();
-   }
+   // public CurrencyConverter() {
+   //    super("Currency Converter");
+   //    setupLookAndFeel();
+   //    initUI();
+   //    fetchRates();
+   // }
 
    private void setupLookAndFeel() {
       try {
@@ -62,6 +63,45 @@ public class CurrencyConverter extends JFrame {
       }
    }
 
+   private void customizeThemeColors() {
+      // Customize ComboBox colors
+      UIManager.put("ComboBox.background", INPUT_BG);
+      UIManager.put("ComboBox.foreground", TEXT_LIGHT);
+      UIManager.put("ComboBox.selectionBackground", PRIMARY_COLOR);
+      UIManager.put("ComboBox.selectionForeground", Color.WHITE);
+      UIManager.put("ComboBox.buttonBackground", INPUT_BG);
+
+      // Customize List colors (dropdown list)
+      UIManager.put("List.background", CARD_BG);
+      UIManager.put("List.foreground", TEXT_LIGHT);
+      UIManager.put("List.selectionBackground", PRIMARY_COLOR); // Blue on hover
+      UIManager.put("List.selectionForeground", Color.WHITE);
+      UIManager.put("List.selectionInactiveBackground", PRIMARY_COLOR);
+
+      // Customize TextField colors
+      UIManager.put("TextField.background", INPUT_BG);
+      UIManager.put("TextField.foreground", TEXT_LIGHT);
+      UIManager.put("TextField.selectionBackground", SECONDARY_COLOR);
+      UIManager.put("TextField.selectionForeground", Color.WHITE);
+
+      // Customize Button colors
+      UIManager.put("Button.background", PRIMARY_COLOR);
+      UIManager.put("Button.foreground", Color.WHITE);
+      UIManager.put("Button.hoverBackground", SECONDARY_COLOR);
+
+      // Customize Panel colors
+      UIManager.put("Panel.background", DARK_BG);
+      UIManager.put("Panel.foreground", TEXT_LIGHT);
+   }
+
+   public CurrencyConverter() {
+      super("Currency Converter");
+      setupLookAndFeel();
+      customizeThemeColors(); // Add this line
+      initUI();
+      fetchRates();
+   }
+   
    private void initUI() {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setSize(650, 750);
@@ -100,11 +140,11 @@ public class CurrencyConverter extends JFrame {
       mainPanel.add(toPanel);
       mainPanel.add(Box.createVerticalStrut(30));
 
-      // Amount and Convert section
+      // Amount section
       JPanel amountPanel = new JPanel();
       amountPanel.setLayout(new BoxLayout(amountPanel, BoxLayout.Y_AXIS));
-      amountPanel.setBackground(new Color(35, 60, 100));
-      amountPanel.setBorder(new RoundedBorder(12, SECONDARY_COLOR, 2, new Insets(20, 20, 20, 20)));
+      amountPanel.setBackground(CARD_BG);
+      amountPanel.setBorder(new RoundedBorder(12, PRIMARY_COLOR, 2, new Insets(20, 20, 20, 20)));
       amountPanel.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH, 120));
       amountPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -117,8 +157,8 @@ public class CurrencyConverter extends JFrame {
       amountField.setFont(new Font("Segoe UI", Font.PLAIN, 18));
       amountField.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH - 40, 45));
       amountField.setBackground(INPUT_BG);
-      amountField.setForeground(Color.WHITE);
-      amountField.setCaretColor(PRIMARY_COLOR);
+      amountField.setForeground(TEXT_LIGHT);
+      amountField.setCaretColor(SECONDARY_COLOR);
       amountField.setBorder(new RoundedBorder(8, SECONDARY_COLOR, 1, new Insets(10, 15, 10, 15)));
       amountPanel.add(amountField);
       mainPanel.add(amountPanel);
@@ -134,7 +174,7 @@ public class CurrencyConverter extends JFrame {
       // Result display
       JPanel resultPanel = new JPanel();
       resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
-      resultPanel.setBackground(new Color(25, 50, 90));
+      resultPanel.setBackground(CARD_BG);
       resultPanel.setBorder(new RoundedBorder(12, ACCENT_COLOR, 2, new Insets(20, 20, 20, 20)));
       resultPanel.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH, 100));
       resultPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -147,7 +187,7 @@ public class CurrencyConverter extends JFrame {
 
       loadingLabel = new JLabel("Loading exchange rates...");
       loadingLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-      loadingLabel.setForeground(new Color(150, 150, 150));
+      loadingLabel.setForeground(TEXT_MUTED);
       loadingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
       resultPanel.add(Box.createVerticalStrut(5));
       resultPanel.add(loadingLabel);
@@ -158,7 +198,7 @@ public class CurrencyConverter extends JFrame {
       // Footer
       JLabel footerLabel = new JLabel("Live rates from open.er-api.com");
       footerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 10));
-      footerLabel.setForeground(new Color(120, 120, 120));
+      footerLabel.setForeground(TEXT_MUTED);
       footerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
       mainPanel.add(footerLabel);
 
@@ -178,22 +218,22 @@ public class CurrencyConverter extends JFrame {
    private JLabel createTitleLabel(String text) {
       JLabel label = new JLabel(text);
       label.setFont(new Font("Segoe UI", Font.BOLD, 32));
-      label.setForeground(Color.WHITE);
+      label.setForeground(SECONDARY_COLOR);
       return label;
    }
 
    private JLabel createSectionLabel(String text) {
       JLabel label = new JLabel(text);
       label.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-      label.setForeground(new Color(180, 180, 180));
+      label.setForeground(TEXT_MUTED);
       return label;
    }
 
    private JPanel createCurrencyPanel(String labelText, boolean isFrom) {
       JPanel panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-      panel.setBackground(PANEL_BG);
-      panel.setBorder(new RoundedBorder(12, new Color(60, 60, 60), 1, new Insets(20, 20, 20, 20)));
+      panel.setBackground(CARD_BG);
+      panel.setBorder(new RoundedBorder(12, PRIMARY_COLOR, 2, new Insets(20, 20, 20, 20)));
       panel.setPreferredSize(new Dimension(MIN_CONTENT_WIDTH, CONTENT_HEIGHT));
       panel.setMinimumSize(new Dimension(MIN_CONTENT_WIDTH, CONTENT_HEIGHT));
       panel.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH, CONTENT_HEIGHT));
@@ -211,8 +251,8 @@ public class CurrencyConverter extends JFrame {
       comboBox.setMaximumSize(new Dimension(MAX_CONTENT_WIDTH - 40, 45));
       comboBox.setRenderer(new CurrencyRenderer());
       comboBox.setBackground(INPUT_BG);
-      comboBox.setForeground(Color.WHITE);
-      comboBox.setBorder(new RoundedBorder(8, PRIMARY_COLOR, 1, new Insets(8, 12, 8, 12)));
+      comboBox.setForeground(TEXT_LIGHT);
+      comboBox.setBorder(new RoundedBorder(8, SECONDARY_COLOR, 1, new Insets(8, 12, 8, 12)));
       comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
       panel.add(comboBox);
 
@@ -226,26 +266,40 @@ public class CurrencyConverter extends JFrame {
    }
 
    private JButton createSwapButton() {
-      JButton button = new JButton("SWAP");
-      button.setFont(new Font("Segoe UI", Font.BOLD, 12));
-      button.setPreferredSize(new Dimension(120, 38));
-      button.setMinimumSize(new Dimension(120, 38));
-      button.setMaximumSize(new Dimension(120, 38));
-      button.setBackground(new Color(33, 55, 100));
-      button.setForeground(Color.WHITE);
-      button.setBorder(new RoundedBorder(8, SECONDARY_COLOR, 2, new Insets(8, 20, 8, 20)));
+      JButton button = new JButton("⇅");
+      button.setText("⇅");
+      button.setFont(new Font("Segoe UI Symbol", Font.BOLD, 20));
+      button.setPreferredSize(new Dimension(50, 50));
+      button.setMinimumSize(new Dimension(50, 50));
+      button.setMaximumSize(new Dimension(50, 50));
+      button.setBackground(ACCENT_COLOR);
+      button.setForeground(DARK_BG);
+
+      // Make button completely round with circular border
+      button.setBorder(new RoundedBorder(25, ACCENT_COLOR, 0, new Insets(0, 0, 0, 0)));
+      button.setContentAreaFilled(true);
       button.setFocusPainted(false);
       button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+      // Remove default button border/insets for perfect circle
+      button.setMargin(new Insets(0, 0, 0, 0));
+      button.setOpaque(true);
+
       button.addMouseListener(new java.awt.event.MouseAdapter() {
          public void mouseEntered(java.awt.event.MouseEvent e) {
-            button.setBorder(new RoundedBorder(8, ACCENT_COLOR, 2, new Insets(8, 20, 8, 20)));
-            button.setBackground(new Color(40, 65, 120));
+            button.setBackground(new Color(255, 213, 0));
          }
 
          public void mouseExited(java.awt.event.MouseEvent e) {
-            button.setBackground(new Color(60, 60, 60));
-            button.setBorder(new RoundedBorder(8, new Color(80, 80, 80), 1, new Insets(8, 20, 8, 20)));
+            button.setBackground(ACCENT_COLOR);
+         }
+
+         public void mousePressed(java.awt.event.MouseEvent e) {
+            button.setBackground(new Color(245, 175, 0));
+         }
+
+         public void mouseReleased(java.awt.event.MouseEvent e) {
+            button.setBackground(ACCENT_COLOR);
          }
       });
 
@@ -267,7 +321,7 @@ public class CurrencyConverter extends JFrame {
 
       button.addMouseListener(new java.awt.event.MouseAdapter() {
          public void mouseEntered(java.awt.event.MouseEvent e) {
-            button.setBackground(color.brighter());
+            button.setBackground(SECONDARY_COLOR);
          }
 
          public void mouseExited(java.awt.event.MouseEvent e) {
@@ -275,7 +329,7 @@ public class CurrencyConverter extends JFrame {
          }
 
          public void mousePressed(java.awt.event.MouseEvent e) {
-            button.setBackground(color.darker());
+            button.setBackground(new Color(21, 101, 192)); // Darker blue
          }
 
          public void mouseReleased(java.awt.event.MouseEvent e) {
@@ -395,7 +449,7 @@ public class CurrencyConverter extends JFrame {
             e.printStackTrace();
             SwingUtilities.invokeLater(() -> {
                loadingLabel.setText("Failed to load exchange rates");
-               loadingLabel.setForeground(new Color(255, 100, 100));
+               loadingLabel.setForeground(WARNING_COLOR);
                JOptionPane.showMessageDialog(this, "Failed to load exchange rates.\n" + e.getMessage(), "Error",
                      JOptionPane.ERROR_MESSAGE);
             });
@@ -455,13 +509,13 @@ public class CurrencyConverter extends JFrame {
          resultLabel.setForeground(SUCCESS_COLOR);
       } catch (NumberFormatException e) {
          resultLabel.setText("Invalid amount format");
-         resultLabel.setForeground(new Color(255, 100, 100));
+         resultLabel.setForeground(WARNING_COLOR);
       } catch (NullPointerException e) {
          resultLabel.setText("Please wait for rates to load");
          resultLabel.setForeground(WARNING_COLOR);
       } catch (Exception e) {
          resultLabel.setText("Conversion error occurred");
-         resultLabel.setForeground(new Color(255, 100, 100));
+         resultLabel.setForeground(WARNING_COLOR);
       }
    }
 
