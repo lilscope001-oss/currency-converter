@@ -1,3 +1,5 @@
 com\example\CurrencyItem.class
 com\example\CurrencyRenderer.class
+com\example\CurrencyConverter$2.class
 com\example\CurrencyConverter.class
+com\example\CurrencyConverter$1.class
